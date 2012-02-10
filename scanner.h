@@ -8,21 +8,16 @@
 #ifndef SCANNER_H_
 #define SCANNER_H_
 
-#include "list.h"
-
 typedef struct{
-	list_t tokens;
 	unsigned int index;
+
 }Scanner;
 
 /* Constructors */
 Scanner * createScanner(const char * string);
-Scanner * createScannerWithDeliminators(const char * string, const char * deliminators);
 
 /* Destructor */
 void destroyScanner(Scanner * scanner);
-
-/* External Functions */
 
 /* Next Functions */
 int * nextInt(Scanner * scanner);
