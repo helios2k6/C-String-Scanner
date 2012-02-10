@@ -8,20 +8,16 @@
 #ifndef SCANNER_H_
 #define SCANNER_H_
 
-typedef struct{
-	char * string;
-	unsigned int length;
-	struct Token * nextToken;
-}Token;
+#include "list.h"
 
 typedef struct{
-	char * string;
-	Token * tokens;
+	list_t tokens;
 	unsigned int index;
 }Scanner;
 
 /* Constructors */
 Scanner * createScanner(const char * string);
+Scanner * createScannerWithDeliminators(const char * string, const char * deliminators);
 
 /* Destructor */
 void destroyScanner(Scanner * scanner);
@@ -41,7 +37,6 @@ int hasNextDouble(Scanner * scanner);
 int hasNextFloat(Scanner * scanner);
 
 /* Utility Functions */
-void setDeliminiators(Scanner * scanner, const char * deliminators);
 void rewind(Scanner * scanner);
 
 #endif /* SCANNER_H_ */
