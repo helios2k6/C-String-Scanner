@@ -9,9 +9,8 @@
 #include <vector>
 #include "boost/tokenizer.hpp"
 #include "boost/lexical_cast.hpp"
-extern "C"{
 #include "scanner.h"
-}
+
 
 /* External C functions */
 extern "C"{
@@ -34,10 +33,15 @@ Scanner * createScanner(const char * string){
 	Token ** tokens = (Token**)calloc(numberOfTokens, sizeof(Token *));
 
 	for(unsigned int index = 0; index < numberOfTokens; index++){
-		const std::string& currentString = tokenizedStrings[index];
 		Token * currentToken = (Token *)malloc(sizeof(Token));
-		currentToken->string = currentString.c_str();
-		currentToken->length = currentString.length();
+		const std::string& currentString = tokenizedStrings[index];
+		unsigned int stringLength = currentString.length();
+		char * stringBuffer = (char *)calloc(stringLength + 1, sizeof(char));
+
+		strcpy(stringBuffer, currentString.c_str()); /* Dangerous, but necessary */
+
+		currentToken->string = stringBuffer;
+		currentToken->length = stringLength;
 
 		tokens[index] = currentToken;
 	}

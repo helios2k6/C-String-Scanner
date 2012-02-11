@@ -8,6 +8,10 @@
 #ifndef SCANNER_H_
 #define SCANNER_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct{
 	const char * string;
 	unsigned int length;
@@ -39,5 +43,9 @@ int hasNextFloat(Scanner * scanner);
 
 /* Utility Functions */
 void rewindScanner(Scanner * scanner);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* SCANNER_H_ */
