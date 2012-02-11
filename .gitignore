@@ -5,3 +5,4 @@ Debug/
 Release/
 *.o
 *.exe
+.DS_Store
