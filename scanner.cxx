@@ -90,5 +90,74 @@ int * nextInt(Scanner * scanner){
 	return result;
 }
 
+unsigned int * nextUnsignedInt(Scanner * scanner){
+	unsigned int * result;
+
+	result = NULL;
+
+	Token ** tokens = scanner->tokens;
+
+	for(unsigned int index = scanner->index; index < scanner->numTokens; index++){
+		Token * currentToken = tokens[index];
+		try{
+			int castResult = boost::lexical_cast<unsigned int>(currentToken->string);
+
+			result = (unsigned int *)malloc(sizeof(unsigned int));
+			*result = castResult;
+
+			scanner->index = index;
+		}catch(boost::bad_lexical_cast& c){
+			//Do nothing, since we intend to be failing a lot
+		}
+	}
+
+	return result;
+}
+double * nextDouble(Scanner * scanner){
+	double * result;
+
+	result = NULL;
+
+	Token ** tokens = scanner->tokens;
+
+	for(unsigned int index = scanner->index; index < scanner->numTokens; index++){
+		Token * currentToken = tokens[index];
+		try{
+			int castResult = boost::lexical_cast<double>(currentToken->string);
+
+			result = (double *)malloc(sizeof(double));
+			*result = castResult;
+
+			scanner->index = index;
+		}catch(boost::bad_lexical_cast& c){
+			//Do nothing, since we intend to be failing a lot
+		}
+	}
+
+	return result;
+}
+float * nextFloat(Scanner * scanner){
+	float * result;
+
+	result = NULL;
+
+	Token ** tokens = scanner->tokens;
+
+	for(unsigned int index = scanner->index; index < scanner->numTokens; index++){
+		Token * currentToken = tokens[index];
+		try{
+			int castResult = boost::lexical_cast<float>(currentToken->string);
+
+			result = (float *)malloc(sizeof(float));
+			*result = castResult;
+
+			scanner->index = index;
+		}catch(boost::bad_lexical_cast& c){
+			//Do nothing, since we intend to be failing a lot
+		}
+	}
+
+	return result;
+}
 
 }
