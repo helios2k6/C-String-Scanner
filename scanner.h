@@ -9,8 +9,14 @@
 #define SCANNER_H_
 
 typedef struct{
-	unsigned int index;
+	const char * string;
+	unsigned int length;
+}Token;
 
+typedef struct{
+	Token ** tokens;
+	unsigned int index;
+	unsigned int numTokens;
 }Scanner;
 
 /* Constructors */
@@ -32,6 +38,6 @@ int hasNextDouble(Scanner * scanner);
 int hasNextFloat(Scanner * scanner);
 
 /* Utility Functions */
-void rewind(Scanner * scanner);
+void rewindScanner(Scanner * scanner);
 
 #endif /* SCANNER_H_ */
