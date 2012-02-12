@@ -19,6 +19,7 @@ void unitTest1();
 void unitTest2();
 void unitTest3();
 void unitTest4();
+void unitTest5();
 
 void unitTest1(){
 	Scanner * scanner = createScanner("Hello World!");
@@ -108,6 +109,23 @@ void unitTest4(){
 
 }
 
+void unitTest5(){
+	Scanner * scanner = createScanner(STANDARD_DOUBLE_STRING);
+	int * result = NULL;
+
+	result = nextInt(scanner);
+
+	assert(*result == 32);
+
+	free(result);
+
+	result = nextInt(scanner);
+
+	assert(result == NULL);
+
+	destroyScanner(scanner);
+}
+
 int main(){
 	{
 		using namespace std;
@@ -129,6 +147,10 @@ int main(){
 		cout << "Running Unit Test 4" << endl;
 
 		unitTest4();
+
+		cout << "Running Unit Test 5" << endl;
+
+		unitTest5();
 
 		cout << "All Unit Tests Passed" << endl;
 
