@@ -17,7 +17,7 @@ Scanner * createScanner(const char * string){
 	std::string cppString(string);
 	std::vector<std::string> tokenizedStrings;
 
-	boost::char_separator<char> customTokenizer(" ;()|\[]{}!@#$%^&*<>?+=_");
+	boost::char_separator<char> customTokenizer(" ;()|\\[]{}!@#$%^&*<>?+=_");
 	typedef boost::tokenizer<boost::char_separator<char> > Tokenizer;
 	Tokenizer tokenizer(cppString, customTokenizer);
 
