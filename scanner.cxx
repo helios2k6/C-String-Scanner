@@ -11,20 +11,20 @@
 #include "boost/lexical_cast.hpp"
 #include "scanner.h"
 
-
 /* External C functions */
 extern "C"{
 Scanner * createScanner(const char * string){
 	std::string cppString(string);
 	std::vector<std::string> tokenizedStrings;
 
-	boost::char_separator<char> customTokenizer(" ;()|\\[]{}!@#$%^&*<>?+-", ".");
+	boost::char_separator<char> customTokenizer(" ;()|\[]{}!@#$%^&*<>?+=_");
 	typedef boost::tokenizer<boost::char_separator<char> > Tokenizer;
 	Tokenizer tokenizer(cppString, customTokenizer);
 
 	/* Get our string tokens */
 	for(Tokenizer::iterator tokenIterator = tokenizer.begin(); tokenIterator != tokenizer.end(); tokenIterator++){
 		const std::string currentToken(*tokenIterator);
+
 		tokenizedStrings.push_back(currentToken);
 	}
 
@@ -72,6 +72,7 @@ void destroyScanner(Scanner * scanner){
 
 int * nextInt(Scanner * scanner){
 	int * result;
+	unsigned int savedIndex = scanner->index;
 
 	result = NULL;
 
@@ -79,16 +80,21 @@ int * nextInt(Scanner * scanner){
 
 	for(unsigned int index = scanner->index; index < scanner->numTokens; index++){
 		Token * currentToken = tokens[index];
+		scanner->index++;
 		try{
 			int castResult = boost::lexical_cast<int>(currentToken->string);
 
 			result = (int *)malloc(sizeof(int));
 			*result = castResult;
-
-			scanner->index = index;
+			break;
 		}catch(boost::bad_lexical_cast& c){
 			//Do nothing, since we intend to be failing a lot
 		}
+
+	}
+
+	if(!result){
+		scanner->index = savedIndex;
 	}
 
 	return result;
@@ -96,72 +102,151 @@ int * nextInt(Scanner * scanner){
 
 unsigned int * nextUnsignedInt(Scanner * scanner){
 	unsigned int * result;
-
+	unsigned int savedIndex = scanner->index;
 	result = NULL;
 
 	Token ** tokens = scanner->tokens;
 
 	for(unsigned int index = scanner->index; index < scanner->numTokens; index++){
 		Token * currentToken = tokens[index];
+		scanner->index++;
 		try{
-			int castResult = boost::lexical_cast<unsigned int>(currentToken->string);
+			unsigned int castResult = boost::lexical_cast<unsigned int>(currentToken->string);
 
 			result = (unsigned int *)malloc(sizeof(unsigned int));
 			*result = castResult;
 
-			scanner->index = index;
+			break;
 		}catch(boost::bad_lexical_cast& c){
 			//Do nothing, since we intend to be failing a lot
 		}
+	}
+
+	if(!result){
+		scanner->index = savedIndex;
 	}
 
 	return result;
 }
 double * nextDouble(Scanner * scanner){
 	double * result;
-
+	unsigned int savedIndex = scanner->index;
 	result = NULL;
 
 	Token ** tokens = scanner->tokens;
 
 	for(unsigned int index = scanner->index; index < scanner->numTokens; index++){
 		Token * currentToken = tokens[index];
+		scanner->index++;
 		try{
-			int castResult = boost::lexical_cast<double>(currentToken->string);
+			double castResult = boost::lexical_cast<double>(currentToken->string);
 
 			result = (double *)malloc(sizeof(double));
 			*result = castResult;
-
-			scanner->index = index;
+			break;
 		}catch(boost::bad_lexical_cast& c){
 			//Do nothing, since we intend to be failing a lot
 		}
+	}
+
+	if(!result){
+		scanner->index = savedIndex;
 	}
 
 	return result;
 }
 float * nextFloat(Scanner * scanner){
 	float * result;
-
+	unsigned int savedIndex = scanner->index;
 	result = NULL;
 
 	Token ** tokens = scanner->tokens;
 
 	for(unsigned int index = scanner->index; index < scanner->numTokens; index++){
 		Token * currentToken = tokens[index];
+		scanner->index++;
 		try{
-			int castResult = boost::lexical_cast<float>(currentToken->string);
+			float castResult = boost::lexical_cast<float>(currentToken->string);
 
 			result = (float *)malloc(sizeof(float));
 			*result = castResult;
-
-			scanner->index = index;
+			break;
 		}catch(boost::bad_lexical_cast& c){
 			//Do nothing, since we intend to be failing a lot
 		}
 	}
 
+	if(!result){
+		scanner->index = savedIndex;
+	}
+
 	return result;
 }
 
+
+/* Check Functions */
+int hasNextInt(Scanner * scanner){
+	unsigned int savedScannerIndex = scanner->index;
+
+	int * result = nextInt(scanner);
+
+	scanner->index = savedScannerIndex;
+
+	if(result){
+		free(result);
+		return 1;
+	}
+
+	return 0;
+}
+
+int hasNextUnsignedInt(Scanner * scanner){
+	unsigned int savedScannerIndex = scanner->index;
+
+	unsigned int  * result = nextUnsignedInt(scanner);
+
+	scanner->index = savedScannerIndex;
+
+	if(result){
+		free(result);
+		return 1;
+	}
+
+	return 0;
+}
+
+int hasNextDouble(Scanner * scanner){
+	unsigned int savedScannerIndex = scanner->index;
+
+	double * result = nextDouble(scanner);
+
+	scanner->index = savedScannerIndex;
+
+	if(result){
+		free(result);
+		return 1;
+	}
+
+	return 0;
+}
+
+int hasNextFloat(Scanner * scanner){
+	unsigned int savedScannerIndex = scanner->index;
+
+	float * result = nextFloat(scanner);
+
+	scanner->index = savedScannerIndex;
+
+	if(result){
+		free(result);
+		return 1;
+	}
+
+	return 0;
+}
+
+/* Utility Functions */
+void rewindScanner(Scanner * scanner){
+	scanner->index = 0;
+}
 }
