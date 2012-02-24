@@ -7,19 +7,26 @@
 
 
 #include <iostream>
+#include <fstream>
 #include <assert.h>
+#include <iterator>
+#include <string>
+#include <cstring>
 #include "scanner.h"
 
 #define PRECISION 0.001
 
 #define STANDARD_STRING "1212 2 222 1 H A1 9"
 #define STANDARD_DOUBLE_STRING "1.0 kk fd 32 2.2 fl 3l"
+#define TEST_FILE_1 "AutoGen_Example.txt"
+#define TEST_FILE_2 "Input_Example.txt"
 
 void unitTest1();
 void unitTest2();
 void unitTest3();
 void unitTest4();
 void unitTest5();
+void unitTest6();
 
 void unitTest1(){
 	Scanner * scanner = createScanner("Hello World!");
@@ -126,35 +133,72 @@ void unitTest5(){
 	destroyScanner(scanner);
 }
 
-int main(){
-	{
-		using namespace std;
+void unitTest6(){
+	std::ifstream testFile1(TEST_FILE_1);
+	std::ifstream testFile2(TEST_FILE_2);
 
-		cout << "Starting Unit Testing of Scanner" << endl;
+	//Test First File
+	while(testFile1.good()){
+		std::string mystring;
 
-		cout << "Running Unit Test 1" << endl;
+		std::getline(testFile1, mystring);
 
-		unitTest1();
+		const char * ptrToCharString = mystring.c_str();
+		char * copyOfString = (char *)malloc(sizeof(char) * mystring.length() + 1);
 
-		cout << "Running Unit Test 2" << endl;
+		strcpy(copyOfString, ptrToCharString);
 
-		unitTest2();
+		Scanner * scanner = createScanner((const char *)copyOfString);
 
-		cout << "Running Unit Test 3" << endl;
+		destroyScanner(scanner);
 
-		unitTest3();
-
-		cout << "Running Unit Test 4" << endl;
-
-		unitTest4();
-
-		cout << "Running Unit Test 5" << endl;
-
-		unitTest5();
-
-		cout << "All Unit Tests Passed" << endl;
-
+		std::cout << mystring << std::endl;
 	}
+
+	//Test Second File
+	while(testFile2.good()){
+		std::string mystring;
+
+		std::getline(testFile2, mystring);
+
+		std::cout << mystring << std::endl;
+	}
+
+	testFile1.close();
+	testFile2.close();
+
+}
+
+int main(){
+
+	std::cout << "Starting Unit Testing of Scanner" << std::endl;
+
+	std::cout << "Running Unit Test 1" << std::endl;
+
+	unitTest1();
+
+	std::cout << "Running Unit Test 2" << std::endl;
+
+	unitTest2();
+
+	std::cout << "Running Unit Test 3" << std::endl;
+
+	unitTest3();
+
+	std::cout << "Running Unit Test 4" << std::endl;
+
+	unitTest4();
+
+	std::cout << "Running Unit Test 5" << std::endl;
+
+	unitTest5();
+
+	std::cout << "Running Unit Test 6" << std::endl;
+
+	unitTest6();
+
+	std::cout << "All Unit Tests Passed" << std::endl;
+
 
 	return 0;
 }
