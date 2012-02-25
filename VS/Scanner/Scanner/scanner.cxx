@@ -19,7 +19,7 @@ extern "C"{
 		std::string cppString(string);
 		std::vector<std::string> tokenizedStrings;
 
-		boost::char_separator<char> customTokenizer(" ;()|\\[]{}!@#$%^&*<>?+=_,\n\t");
+		boost::char_separator<char> customTokenizer(" ;()|\\[]{}!@#$%^&*<>?+=_,\t\n");
 		typedef boost::tokenizer<boost::char_separator<char> > Tokenizer;
 		Tokenizer tokenizer(cppString, customTokenizer);
 
@@ -41,7 +41,7 @@ extern "C"{
 			char * stringBuffer = (char *)calloc(stringLength + 1, sizeof(char));
 
 			/* Dangerous, but necessary */
-			strncpy(stringBuffer, currentString.c_str(), currentString.length());
+			strncpy(stringBuffer, currentString.c_str(), currentString.length()+1);
 
 			currentToken->string = stringBuffer;
 			currentToken->length = stringLength;

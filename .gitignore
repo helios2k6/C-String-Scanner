@@ -6,3 +6,6 @@ Release/
 *.o
 *.exe
 .DS_Store
+*.lib
+*.ilk
+*.pdb
