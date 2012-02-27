@@ -34,6 +34,7 @@ int * nextInt(Scanner * scanner);
 unsigned int * nextUnsignedInt(Scanner * scanner);
 double * nextDouble(Scanner * scanner);
 float * nextFloat(Scanner * scanner);
+unsigned int searchNextStringToken(Scanner * scanner, const char * string, char ** copy);
 
 /* Check Functions */
 int hasNextInt(Scanner * scanner);

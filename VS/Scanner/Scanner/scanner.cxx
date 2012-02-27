@@ -186,6 +186,9 @@ extern "C"{
 		return result;
 	}
 
+	unsigned int searchNextStringToken(Scanner * scanner, const char * string, char ** copy){
+
+	}
 
 	/* Check Functions */
 	int hasNextInt(Scanner * scanner){
