@@ -186,11 +186,45 @@ extern "C"{
 		return result;
 	}
 
-	unsigned int searchNextStringToken(Scanner * scanner, const char * string, char ** copy){
+	/* Search for Token */
+	int searchNextStringToken(Scanner * scanner, const char * string){
+		Token ** tokens;
+		bool foundResult = false;
+		unsigned int savedIndex = scanner->index;
+		std::string primaryString(string);
+		tokens = scanner->tokens;
 
+		for(unsigned int index = scanner->index; index < scanner->numTokens; index++){
+			Token * currentToken = tokens[index];
+			std::string currentString(currentToken->string);
+			scanner->index++;
+
+			if(!primaryString.compare(currentString)){
+				foundResult = true;
+				break;
+			}	
+		}
+
+		if(!foundResult){
+			scanner->index = savedIndex;
+			return 0;
+		}
+
+		return 1;
 	}
 
 	/* Check Functions */
+	int hasNextStringToken(Scanner * scanner, const char * string){
+		int result;
+		unsigned int savedIndex = scanner->index;
+
+		result = searchNextStringToken(scanner, string);
+
+		scanner->index = savedIndex;
+
+		return result;
+	}
+
 	int hasNextInt(Scanner * scanner){
 		unsigned int savedScannerIndex = scanner->index;
 

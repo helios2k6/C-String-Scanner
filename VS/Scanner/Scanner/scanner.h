@@ -34,13 +34,16 @@ int * nextInt(Scanner * scanner);
 unsigned int * nextUnsignedInt(Scanner * scanner);
 double * nextDouble(Scanner * scanner);
 float * nextFloat(Scanner * scanner);
-unsigned int searchNextStringToken(Scanner * scanner, const char * string, char ** copy);
+
+/* Searching */
+int searchNextStringToken(Scanner * scanner, const char * string);
 
 /* Check Functions */
 int hasNextInt(Scanner * scanner);
 int hasNextUnsignedInt(Scanner * scanner);
 int hasNextDouble(Scanner * scanner);
 int hasNextFloat(Scanner * scanner);
+int hasNextStringToken(Scanner * scanner, const char * string);
 
 /* Utility Functions */
 void rewindScanner(Scanner * scanner);
