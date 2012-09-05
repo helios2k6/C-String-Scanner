@@ -11,3 +11,4 @@ TestResults/*
 *KILL*
 */ipch/*
 *.ipch
+*.sdf
