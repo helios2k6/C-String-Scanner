@@ -10,3 +10,4 @@ build.props
 TestResults/*
 *KILL*
 */ipch/*
+*.ipch
