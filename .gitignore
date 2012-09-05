@@ -9,6 +9,9 @@
 build.props
 TestResults/*
 *KILL*
-*/ipch/*
 *.ipch
 *.sdf
+*.pdb
+*.idb
+*Debug*
+*.opensdf
