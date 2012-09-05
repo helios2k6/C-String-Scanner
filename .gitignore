@@ -1,11 +1,3 @@
-.settings/
-.cproject
-.project
-Debug/
-Release/
-*.o
-*.exe
-.DS_Store
-*.lib
-*.ilk
-*.pdb
+_Resharper*
+bin*
+obj*
