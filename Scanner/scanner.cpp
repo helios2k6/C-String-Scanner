@@ -36,6 +36,8 @@ namespace{
 		for(; copyItr != end; copyItr++){
 			try{
 				*ref = boost::lexical_cast<T>(*copyItr);
+				start = copyItr;
+				start++;
 				return true;
 			}catch(boost::bad_lexical_cast){
 				/* Swallow because we're expecting this a lot */
@@ -92,6 +94,7 @@ bool scanner::Scanner::searchNextStringToken(const std::string& str){
 
 	if(resultItr != tokenizer.end()){
 		currentPosition = resultItr;
+		currentPosition++;
 		return true;
 	}
 

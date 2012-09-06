@@ -1,7 +1,7 @@
 #include "Stdafx.h"
 
 #include <string>
-#include "scanner_export.h"
+#include "scanner_export.hpp"
 
 extern "C"{
 	scanner::Scanner * createScanner(const char * str){
