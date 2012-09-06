@@ -1,22 +1,20 @@
 #include "Stdafx.h"
 
 #include <string>
-#include "scanner.hpp"
 #include "scanner_export.h"
 
-
 extern "C"{
-	Scanner * createScanner(const char * str){
-		Scanner * scanner = new scanner::Scanner(std::string(str));
+	scanner::Scanner * createScanner(const char * str){
+		scanner::Scanner * scanner = new scanner::Scanner(std::string(str));
 
 		return scanner;
 	}
 
-	void destroyScanner(Scanner * scanner){
+	void destroyScanner(scanner::Scanner * scanner){
 		delete scanner;
 	}
 
-	int * nextInt(Scanner * scanner){
+	int * nextInt(scanner::Scanner * scanner){
 		int * ref = (int *)malloc(sizeof(int));
 
 		if(scanner->tryGetNextInt(ref)){
@@ -27,7 +25,7 @@ extern "C"{
 		return NULL;
 	}
 
-	unsigned int * nextUnsignedInt(Scanner * scanner){
+	unsigned int * nextUnsignedInt(scanner::Scanner * scanner){
 		unsigned int * ref = (unsigned int *)malloc(sizeof(unsigned int));
 
 		if(scanner->tryGetNextUnsignedInt(ref)){
@@ -38,7 +36,7 @@ extern "C"{
 		return NULL;
 	}
 
-	double * nextDouble(Scanner * scanner){
+	double * nextDouble(scanner::Scanner * scanner){
 		double * ref = (double *)malloc(sizeof(double));
 
 		if(scanner->tryGetNextDouble(ref)){
@@ -49,7 +47,7 @@ extern "C"{
 		return NULL;
 	}
 
-	float * nextFloat(Scanner * scanner){
+	float * nextFloat(scanner::Scanner * scanner){
 		float * ref = (float *)malloc(sizeof(float));
 
 		if(scanner->tryGetNextFloat(ref)){
@@ -60,43 +58,43 @@ extern "C"{
 		return NULL;
 	}
 
-	int searchNextStringToken(Scanner * scanner, const char * str){
+	int searchNextStringToken(scanner::Scanner * scanner, const char * str){
 		return scanner->searchNextStringToken(std::string(str)) ? 1 : 0;
 	}
 
-	int hasNextInt(Scanner * scanner){
+	int hasNextInt(scanner::Scanner * scanner){
 		return scanner->hasNextInt() ? 1 : 0;
 	}
 
-	int hasNextUnsignedInt(Scanner * scanner){
+	int hasNextUnsignedInt(scanner::Scanner * scanner){
 		return scanner->hasNextUnsignedInt() ? 1 : 0;
 	}
 
-	int hasNextDouble(Scanner * scanner){
+	int hasNextDouble(scanner::Scanner * scanner){
 		return scanner->hasNextDouble() ? 1 : 0;
 	}
 
-	int hasNextFloat(Scanner * scanner){
+	int hasNextFloat(scanner::Scanner * scanner){
 		return scanner->hasNextFloat() ? 1 : 0;
 	}
 
-	void rewindScanner(Scanner * scanner){
+	void rewindScanner(scanner::Scanner * scanner){
 		scanner->rewind();
 	}
 
-	int tryGetNextInt(Scanner * scanner, int * ref){
+	int tryGetNextInt(scanner::Scanner * scanner, int * ref){
 		return scanner->tryGetNextInt(ref) ? 1 : 0;
 	}
 
-	int tryGetNextUnsignedInt(Scanner * scanner, unsigned int * ref){
+	int tryGetNextUnsignedInt(scanner::Scanner * scanner, unsigned int * ref){
 		return scanner->tryGetNextUnsignedInt(ref) ? 1 : 0;
 	}
 
-	int tryGetNextDouble(Scanner * scanner, double * ref){
+	int tryGetNextDouble(scanner::Scanner * scanner, double * ref){
 		return scanner->tryGetNextDouble(ref) ? 1 : 0;
 	}
 
-	int tryGetNextFloat(Scanner * scanner, float * ref){
+	int tryGetNextFloat(scanner::Scanner * scanner, float * ref){
 		return scanner->tryGetNextFloat(ref) ? 1 : 0;
 	}
 }

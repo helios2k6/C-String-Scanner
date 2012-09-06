@@ -20,7 +20,7 @@ namespace{
 		Iterator copyItr(start);
 		for(; copyItr != end; copyItr++){
 			try{
-				boost::lexical_cast<T>(str);
+				boost::lexical_cast<T>(*copyItr);
 				return true;
 			}catch(boost::bad_lexical_cast){
 				//Swallow errors
