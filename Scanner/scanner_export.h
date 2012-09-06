@@ -1,5 +1,6 @@
 #ifdef __cplusplus
 #include "scanner.hpp"
+using namespace scanner;
 #else
 typedef struct Scanner Scanner;
 #endif
