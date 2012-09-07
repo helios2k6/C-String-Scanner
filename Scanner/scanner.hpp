@@ -23,6 +23,7 @@ namespace scanner{
 		bool hasNextUnsignedInt() const;
 		bool hasNextDouble() const;
 		bool hasNextFloat() const;
+		bool hasNextStringToken(const std::string& str);
 
 		bool tryGetNextInt(int * ref);
 		bool tryGetNextUnsignedInt(unsigned int * ref);

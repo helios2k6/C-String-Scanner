@@ -27,6 +27,9 @@
     <ClInclude Include="scanner_export.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="scanner_export.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Stdafx.cpp">

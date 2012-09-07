@@ -1,39 +1,40 @@
+#ifndef SCANNER_EXPORT_H
+#define SCANNER_EXPORT_H
+
 #include "scanner.hpp"
-#ifdef __cplusplus
+using namespace scanner;
+
 extern "C" {
-#endif
+	/* Constructors */
+	Scanner * createScanner(const char * string);
 
-/* Constructors */
-scanner::Scanner * createScanner(const char * string);
+	/* Destructor */
+	void destroyScanner(Scanner * scanner);
 
-/* Destructor */
-void destroyScanner(scanner::Scanner * scanner);
+	/* Next Functions */
+	int * nextInt(Scanner * scanner);
+	unsigned int * nextUnsignedInt(Scanner * scanner);
+	double * nextDouble(Scanner * scanner);
+	float * nextFloat(Scanner * scanner);
 
-/* Next Functions */
-int * nextInt(scanner::Scanner * scanner);
-unsigned int * nextUnsignedInt(scanner::Scanner * scanner);
-double * nextDouble(scanner::Scanner * scanner);
-float * nextFloat(scanner::Scanner * scanner);
+	/* Searching */
+	int searchNextStringToken(Scanner * scanner, const char * string);
 
-/* Searching */
-int searchNextStringToken(scanner::Scanner * scanner, const char * string);
+	/* Check Functions */
+	int hasNextInt(Scanner * scanner);
+	int hasNextUnsignedInt(Scanner * scanner);
+	int hasNextDouble(Scanner * scanner);
+	int hasNextFloat(Scanner * scanner);
+	int hasNextStringToken(Scanner * scanner, const char * string);
 
-/* Check Functions */
-int hasNextInt(scanner::Scanner * scanner);
-int hasNextUnsignedInt(scanner::Scanner * scanner);
-int hasNextDouble(scanner::Scanner * scanner);
-int hasNextFloat(scanner::Scanner * scanner);
-int hasNextStringToken(scanner::Scanner * scanner, const char * string);
+	/* Utility Functions */
+	void rewindScanner(Scanner * scanner);
 
-/* Utility Functions */
-void rewindScanner(scanner::Scanner * scanner);
+	/* Scanner 2.0 Functions */
+	int tryGetNextInt(Scanner * scanner, int * ref);
+	int tryGetNextUnsignedInt(Scanner * scanner, unsigned int * ref);
+	int tryGetNextDouble(Scanner * scanner, double * ref);
+	int tryGetNextFloat(Scanner * scanner, float * ref);
 
-/* Scanner 2.0 Functions */
-int tryGetNextInt(scanner::Scanner * scanner, int * ref);
-int tryGetNextUnsignedInt(scanner::Scanner * scanner, unsigned int * ref);
-int tryGetNextDouble(scanner::Scanner * scanner, double * ref);
-int tryGetNextFloat(scanner::Scanner * scanner, float * ref);
-
-#ifdef __cplusplus
 }
 #endif

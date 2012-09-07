@@ -17,10 +17,9 @@
 namespace{
 	template<typename Iterator, typename T>
 	bool hasNextType(Iterator start, Iterator end){
-		Iterator copyItr(start);
-		for(; copyItr != end; copyItr++){
+		for(; start != end; start++){
 			try{
-				boost::lexical_cast<T>(*copyItr);
+				boost::lexical_cast<T>(*start);
 				return true;
 			}catch(boost::bad_lexical_cast){
 				//Swallow errors
@@ -30,21 +29,18 @@ namespace{
 	}
 
 	template<typename Iterator, typename T>
-	bool getNextType(Iterator start, Iterator end, T * ref){
-		Iterator copyItr(start);
+	Iterator getNextType(Iterator start, Iterator end, T * ref){
 
-		for(; copyItr != end; copyItr++){
+		for(; start != end; start++){
 			try{
-				*ref = boost::lexical_cast<T>(*copyItr);
-				start = copyItr;
-				start++;
-				return true;
+				*ref = boost::lexical_cast<T>(*start);
+				break;
 			}catch(boost::bad_lexical_cast){
 				/* Swallow because we're expecting this a lot */
 			}
 		}
 
-		return false;
+		return start;
 	}
 
 }
@@ -72,25 +68,56 @@ bool scanner::Scanner::hasNextDouble() const{
 	return hasNextType<Tokenizer::iterator, double>(currentPosition, tokenizer.end());
 }
 
+bool scanner::Scanner::hasNextStringToken(const std::string& str){
+	return std::find_if(currentPosition, tokenizer.end(), std::bind2nd(std::equal_to<std::string>(), str)) == tokenizer.end();
+}
+
 bool scanner::Scanner::tryGetNextInt(int * ref){
-	return getNextType<Tokenizer::iterator, int>(currentPosition, tokenizer.end(), ref);
+	Tokenizer::iterator resultItr = getNextType<Tokenizer::iterator, int>(currentPosition, tokenizer.end(), ref);
+	bool result = resultItr != tokenizer.end();
+
+	if(result){
+		currentPosition = ++resultItr;
+	}
+
+	return result;
 }
 
 bool scanner::Scanner::tryGetNextUnsignedInt(unsigned int * ref){
-	return getNextType<Tokenizer::iterator, unsigned int>(currentPosition, tokenizer.end(), ref);
+	Tokenizer::iterator resultItr = getNextType<Tokenizer::iterator, unsigned int>(currentPosition, tokenizer.end(), ref);
+	bool result = resultItr != tokenizer.end();
+
+	if(result){
+		currentPosition = ++resultItr;
+	}
+
+	return result;
 }
 
 bool scanner::Scanner::tryGetNextFloat(float * ref){
-	return getNextType<Tokenizer::iterator, float>(currentPosition, tokenizer.end(), ref);
+	Tokenizer::iterator resultItr = getNextType<Tokenizer::iterator, float>(currentPosition, tokenizer.end(), ref);
+	bool result = resultItr != tokenizer.end();
+
+	if(result){
+		currentPosition = ++resultItr;
+	}
+
+	return result;
 }
 
 bool scanner::Scanner::tryGetNextDouble(double * ref){
-	return getNextType<Tokenizer::iterator, double>(currentPosition, tokenizer.end(), ref);
+	Tokenizer::iterator resultItr = getNextType<Tokenizer::iterator, double>(currentPosition, tokenizer.end(), ref);
+	bool result = resultItr != tokenizer.end();
+
+	if(result){
+		currentPosition = ++resultItr;
+	}
+
+	return result;
 }
 
 bool scanner::Scanner::searchNextStringToken(const std::string& str){
-	Tokenizer::iterator copyItr(currentPosition);
-	Tokenizer::iterator resultItr = std::find_if(copyItr, tokenizer.end(), std::bind2nd(std::equal_to<std::string>(), str));
+	Tokenizer::iterator resultItr = std::find_if(currentPosition, tokenizer.end(), std::bind2nd(std::equal_to<std::string>(), str));
 
 	if(resultItr != tokenizer.end()){
 		currentPosition = resultItr;

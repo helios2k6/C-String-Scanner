@@ -14,14 +14,12 @@ namespace{
 
 void unitTest1();
 void unitTest2();
-void unitTest3();
-void unitTest4();
 
 int main(){
+	cout << "Starting Unit Tests" << endl;
 	unitTest1();
 	unitTest2();
-	unitTest3();
-	unitTest4();
+	cout << "All Unit Tests Passed" << endl;
 }
 
 void unitTest1(){
