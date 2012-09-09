@@ -17,7 +17,7 @@
 namespace{
 	template<typename Iterator, typename T>
 	bool hasNextType(Iterator start, Iterator end){
-		for(; start != end; start++){
+		for(; start != end; ++start){
 			try{
 				boost::lexical_cast<T>(*start);
 				return true;
@@ -31,7 +31,7 @@ namespace{
 	template<typename Iterator, typename T>
 	Iterator getNextType(Iterator start, Iterator end, T * ref){
 
-		for(; start != end; start++){
+		for(; start != end; ++start){
 			try{
 				*ref = boost::lexical_cast<T>(*start);
 				break;
