@@ -30,7 +30,7 @@ namespace scanner{
 		bool tryGetNextDouble(double * ref);
 		bool tryGetNextFloat(float * ref);
 
-		bool searchNextStringToken(const std::string& str);
+		bool skip(const std::string& str);
 
 		void rewind();
 

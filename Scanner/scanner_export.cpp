@@ -6,9 +6,7 @@
 
 extern "C"{
 	Scanner * createScanner(const char * str){
-		scanner::Scanner * scanner = new scanner::Scanner(std::string(str));
-
-		return scanner;
+		return new scanner::Scanner(std::string(str));
 	}
 
 	void destroyScanner(Scanner * scanner){
@@ -60,7 +58,7 @@ extern "C"{
 	}
 
 	int searchNextStringToken(Scanner * scanner, const char * str){
-		return scanner->searchNextStringToken(std::string(str)) ? 1 : 0;
+		return scanner->skip(std::string(str)) ? 1 : 0;
 	}
 
 	int hasNextStringToken(Scanner * scanner, const char * str){

@@ -116,12 +116,12 @@ bool scanner::Scanner::tryGetNextDouble(double * ref){
 	return result;
 }
 
-bool scanner::Scanner::searchNextStringToken(const std::string& str){
+bool scanner::Scanner::skip(const std::string& str){
 	Tokenizer::iterator resultItr = std::find_if(currentPosition, tokenizer.end(), std::bind2nd(std::equal_to<std::string>(), str));
 
 	if(resultItr != tokenizer.end()){
 		currentPosition = resultItr;
-		currentPosition++;
+		++currentPosition;
 		return true;
 	}
 
